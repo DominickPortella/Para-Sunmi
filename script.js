@@ -1,13 +1,13 @@
 // --- CONFIGURACIÓN INICIAL ---
-const fechaInicio = new Date(2026, 2, 11); 
+const fechaInicio = new Date(2026, 2, 11);
 const mensajesRosas = [
-    "Eres el verso más lindo de mi poema favorito. ✨", 
-    "Tu sonrisa ilumina mi mundo más que el sol. ❤️", 
-    "Tu amor es mi calma en la tormenta. 🌊", 
-    "Eres mi sol, mi luna y mis estrellas. 🌙", 
-    "Amo la paz que siento a tu lado. 🏠", 
-    "Gracias por cada risa compartida. 💍", 
-    "Mi corazón late de alegría por ti. 🌹", 
+    "Eres el verso más lindo de mi poema favorito. ✨",
+    "Tu sonrisa ilumina mi mundo más que el sol. ❤️",
+    "Tu amor es mi calma en la tormenta. 🌊",
+    "Eres mi sol, mi luna y mis estrellas. 🌙",
+    "Amo la paz que siento a tu lado. 🏠",
+    "Gracias por cada risa compartida. 💍",
+    "Mi corazón late de alegría por ti. 🌹",
     "Te quiero hoy y para siempre. 💖"
 ];
 const frasesAbrazo = ["¡Lluvia de amor! 💖", "¡Muchos besos! 💋", "¡No te suelto! 🫂", "¡Te extraño! ✨", "¡Eres mi todo! 🌸"];
@@ -15,16 +15,16 @@ const frasesC = ["Eres mi hogar", "Mi eterno amor", "Mi milagro", "Por siempre t
 
 // --- RELOJ ---
 function actualizarReloj() {
-    const ahora = new Date(); 
+    const ahora = new Date();
     const diffMilisegundos = ahora - fechaInicio;
     const diasTotales = Math.floor(diffMilisegundos / (1000 * 60 * 60 * 24));
     const horasActuales = ahora.getHours();
-    
+
     document.getElementById('d').innerText = diasTotales.toString().padStart(2, '0');
     document.getElementById('h').innerText = horasActuales.toString().padStart(2, '0');
     document.getElementById('m').innerText = ahora.getMinutes().toString().padStart(2, '0');
     document.getElementById('s').innerText = ahora.getSeconds().toString().padStart(2, '0');
-    
+
     if (horasActuales >= 18 || horasActuales < 6) {
         document.body.classList.add('modo-noche');
         document.body.classList.remove('modo-dia');
@@ -47,11 +47,11 @@ function crearRosas() {
             traslape = false; x = Math.random() * 70 + 15; y = Math.random() * 55 + 15;
             if (x > 35 && x < 65 && y > 35 && y < 65) traslape = true;
             for (let p of posiciones) {
-                if (Math.sqrt(Math.pow(x-p.x,2) + Math.pow(y-p.y,2)) < 18) traslape = true;
+                if (Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2)) < 18) traslape = true;
             }
             intentos++;
         } while (traslape && intentos < 100);
-        posiciones.push({x, y});
+        posiciones.push({ x, y });
         const rosa = document.createElement('div');
         rosa.className = 'rosa-mensaje floating';
         rosa.style.left = x + '%'; rosa.style.top = y + '%';
@@ -67,19 +67,19 @@ function abrirCarta(i) {
     const rand = Math.random();
     const startX = rand < 0.5 ? "-150vw" : "150vw";
     const startY = (Math.random() * 100 - 50) + "vh";
-    
+
     carta.style.setProperty('--start-x', startX);
     carta.style.setProperty('--start-y', startY);
-    
+
     document.getElementById("mensaje-texto").innerText = mensajesRosas[i];
-    carta.classList.remove("abierta"); 
+    carta.classList.remove("abierta");
     carta.classList.add("vuelo");
     overlay.classList.add("active");
 }
 
 function abrirLazo() {
     document.getElementById("carta").classList.add("abierta");
-    if(navigator.vibrate) navigator.vibrate([30, 50]);
+    if (navigator.vibrate) navigator.vibrate([30, 50]);
 }
 
 function cerrarCarta() {
@@ -100,7 +100,7 @@ function toggleAbrazo() {
         msg.classList.add('visible');
         msg.innerText = frasesAbrazo[Math.floor(Math.random() * frasesAbrazo.length)];
         intervaloCorazones = setInterval(crearCorazonVuelo, 200);
-        if(navigator.vibrate) navigator.vibrate([50, 30, 50]);
+        if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
     } else {
         btn.classList.remove('activo');
         msg.classList.remove('visible');
@@ -111,7 +111,7 @@ function toggleAbrazo() {
 function crearCorazonVuelo() {
     const c = document.createElement('div');
     c.className = 'corazon-vuelo';
-    const tipos = ['❤️','💖','💗','💘','🌸','💌'];
+    const tipos = ['❤️', '💖', '💗', '💘', '🌸', '💌'];
     c.innerHTML = tipos[Math.floor(Math.random() * tipos.length)];
     c.style.right = (Math.random() * 40 + 30) + 'px';
     c.style.bottom = '40px';
@@ -164,8 +164,8 @@ setInterval(() => {
 const intro = document.getElementById('intro-portal');
 setTimeout(() => intro.classList.add('open'), 1000);
 setTimeout(() => intro.classList.add('glow'), 2500);
-setTimeout(() => { 
-    intro.classList.add('inactive'); 
-    main.classList.add('active'); 
-    crearRosas(); 
+setTimeout(() => {
+    intro.classList.add('inactive');
+    main.classList.add('active');
+    crearRosas();
 }, 4200);
